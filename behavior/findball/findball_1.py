@@ -61,7 +61,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             (recogtime, obs) = self.m.get_last_observation("combined_red")
             if not obs == None and recogtime > self.__last_ball_recogtime:
                 #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
-                
+                # bla
                 contours = obs["sorted_contours"]
                 biggest_blob = contours[0]
                 print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
