@@ -117,6 +117,9 @@ class Nao(object):
     def isWalking(self):
         return self.__Motion.walkIsActive()    
         
+    def isMoving(self):
+        return self.__Motion.moveIsActive()
+        
     def stopwalk(self):
         self.__Motion.stopWalk()
         
@@ -505,15 +508,28 @@ class Nao(object):
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
         self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
-        
-    def look_horizontal(self):
+    
+    def look_forward(self):
         """
-        Makes the Nao look forward.
+        Makes the Nao look straigth forward
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
         self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
-        self.get_proxy("motion").angleInterpolation("YawPitch", 0, 1.0, True)
+        self.get_proxy("motion").angleInterpolation("HeadYaw", 0, 1.0, True)
+    
+    def look_right(self):
+        """
+        Makes the Nao look right.
+        """
+        self.get_proxy("motion").setStiffnesses("Head", 1.0)
+        self.get_proxy("motion").angleInterpolation("HeadYaw", -(45 * almath.TO_RAD), 1.0, True)
 
+    def look_left(self):
+        """
+        Makes the Nao look left.
+        """
+        self.get_proxy("motion").setStiffnesses("Head", 1.0)
+        self.get_proxy("motion").angleInterpolation("HeadYaw", 45 * almath.TO_RAD, 1.0, True)
 
     def sit_down(self):
         """
