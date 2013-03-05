@@ -15,8 +15,6 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
         self.__ball_last_seen = time.time()
 
         self.__is_looking_horizontal = True
-        self.__nao.useBottomCamera()
-
 
     def implementation_update(self):
         if self.idling:

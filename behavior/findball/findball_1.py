@@ -19,7 +19,6 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         self.__nao.complete_behavior("standup")
         #Make sure the robot is standing and looks horizontal:
         self.__nao.look_forward()
-        self.__nao.useTopCamera()
 
         #Possible states (WALK or TURN):
         self.__state = "FIND"

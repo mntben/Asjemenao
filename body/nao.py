@@ -579,35 +579,35 @@ class Nao(object):
         #Gain: 28 / Exp: 60
         #Gain: 35 / Exp: 40
         
-        #ALImageTranscriber::DEFAULT_CAMERA_AUTO_GAIN = 0; // AUTO GAIN OFF
+        #AUTO_GAIN (AUTO GAIN OFF = 0)
         self.__Video.setParam(13, 0)
-        #ALImageTranscriber::DEFAULT_CAMERA_GAIN = 26;
-        self.__Video.setParam(6, 26)
-        #ALImageTranscriber::DEFAULT_CAMERA_AUTO_WHITEBALANCE = 0; // AUTO WB OFF
+        #CAMERA_GAIN
+        self.__Video.setParam(6, 120)
+        #AUTO_WHITEBALANCE (AUTO WB OFF = 0)
         self.__Video.setParam(12, 0)
-        #ALImageTranscriber::DEFAULT_CAMERA_BLUECHROMA = 128;
+        #CAMERA_BLUECHROMA
         self.__Video.setParam(5, 128)
-        #ALImageTranscriber::DEFAULT_CAMERA_REDCHROMA = 68;
+        #CAMERA_REDCHROMA
         self.__Video.setParam(4, 68)
-        #ALImageTranscriber::DEFAULT_CAMERA_BRIGHTNESS = 140;
+        #CAMERA_BRIGHTNESS
         self.__Video.setParam(0, 140)
-        #ALImageTranscriber::DEFAULT_CAMERA_CONTRAST = 64;
+        #CAMERA_CONTRAST
         self.__Video.setParam(1, 64)
-        #ALImageTranscriber::DEFAULT_CAMERA_SATURATION = 128;
+        #CAMERA_SATURATION
         self.__Video.setParam(2, 128)
-        #ALImageTranscriber::DEFAULT_CAMERA_HUE = 0;
+        #CAMERA_HUE
         self.__Video.setParam(3, 0)
         
         #Exposure length
-        #ALImageTranscriber::DEFAULT_CAMERA_AUTO_EXPOSITION = 0; // AUTO EXPOSURE OFF
+        #CAMERA_AUTO_EXPOSITION (AUTO EXPOSURE OFF =0)
         self.__Video.setParam(11, 0)
-        #ALImageTranscriber::DEFAULT_CAMERA_EXPOSURE = 83;
-        self.__Video.setParam(17, 83)
+        #CAMERA_EXPOSURE
+        self.__Video.setParam(17, 300)
         
         #Image orientation
-        #ALImageTranscriber::DEFAULT_CAMERA_HFLIP = 0;
+        #CAMERA_HFLIP
         self.__Video.setParam(7, 0)
-        #ALImageTranscriber::DEFAULT_CAMERA_VFLIP = 0;
+        #CAMERA_VFLIP
         self.__Video.setParam(8, 0)
 
 
