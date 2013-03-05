@@ -10,12 +10,16 @@ class ExampleBlobdetector_x(basebehavior.behaviorimplementation.BehaviorImplemen
         self.__last_recogtime = 0
 
         self.__blob_list = [
-                ["green", False, time.time()],
-                ["red", False, time.time()],
+                ["green", True, time.time()],
+                ["red", True, time.time()],
                 ["blue", False, time.time()],
                 ["yellow", False, time.time()],
             ]
         self.__nao = self.body.nao(0)
+        self.__nao.useTopCamera()
+        self.__nao.initCamera()
+        self.__nao.useBottomCamera()
+        self.__nao.initCamera()
 
     def implementation_update(self):
         for blob in self.__blob_list:
