@@ -505,6 +505,14 @@ class Nao(object):
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
         self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
+        
+    def look_horizontal(self):
+        """
+        Makes the Nao look forward.
+        """
+        self.get_proxy("motion").setStiffnesses("Head", 1.0)
+        self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
+        self.get_proxy("motion").angleInterpolation("YawPitch", 0, 1.0, True)
 
 
     def sit_down(self):
