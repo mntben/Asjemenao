@@ -22,16 +22,18 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
             return
 
         # If the ball is seen but not close enough, just walk towards it:
-        if (self.m.n_occurs("red.colorblob") > 0):
-            (recogtime, obs) = self.m.get_last_observation("red.colorblob")
+        if (self.m.n_occurs("combined_red") > 0):
+            (recogtime, obs) = self.m.get_last_observation("combined_red")
             if not obs == None and recogtime > self.__last_ball_recogtime:
                 #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
                 self.__last_ball_recogtime = recogtime
+                contours = obs["sorted_contours"]
+                biggest_blob = contours[0]
                 #Ball is found if the detected ball is big enough (thus filtering noise):
-                if obs['size'] > 0.0015:
+                if biggest_blob['surface'] > 100 and biggest_blob['surface'] < 550:
                     self.__ball_last_seen = time.time()
                     #Is the ball in the correct location?:
-                    if obs['y'] > 75 and obs['x'] > 60 and obs['x'] < 100 and not self.__is_looking_horizontal:
+                    if biggest_blob['y'] > 75 and biggest_blob['x'] > 60 and biggest_blob['x'] < 100 and not self.__is_looking_horizontal:
                         # If the ball is seen close enough, use self.m.add_item('ball_approached',time.time(),{}) to finish this behavior.
                         self.m.add_item('ball_approached', time.time(),{}) 
                         return
@@ -45,12 +47,12 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                             #~ pass
                     if not self.__nao.isWalking():
                         #Walk a bit if the ball is not really close:
-                        if obs['y'] < 80 and self.__is_looking_horizontal:
-                            print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
-                            self.__nao.walkNav(((obs['y']-80)*(-0.005)), 0, ((obs['x']-80)*(-0.003)))
+                        if biggest_blob['y'] < 80 and self.__is_looking_horizontal:
+                            #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
+                            self.__nao.walkNav(((biggest_blob['y']-80)*(-0.005)), 0, ((biggest_blob['x']-80)*(-0.003)))
                             pass
-                        elif obs['y'] < 80 and not self.__is_looking_horizontal:
-                            self.__nao.walkNav(((obs['y']-85)*(-0.002)), 0, ((obs['x']-80)*(-0.005)))
+                        elif biggest_blob['y'] < 80 and not self.__is_looking_horizontal:
+                            self.__nao.walkNav(((biggest_blob['y']-85)*(-0.002)), 0, ((biggest_blob['x']-80)*(-0.005)))
                             pass
                         elif self.__is_looking_horizontal:
                             self.__nao.look_down()

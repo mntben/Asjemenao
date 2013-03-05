@@ -17,11 +17,13 @@ class Shoot_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         
         self.__nao.look_down()
         self.__nao.say("Kicking!")
-        if (self.m.n_occurs("red.colorblob") > 0):
-            (recogtime, obs) = self.m.get_last_observation("red.colorblob")
-            if obs['x'] < 80:
+        if (self.m.n_occurs("combined_red") > 0):
+            (recogtime, obs) = self.m.get_last_observation("combined_red")
+            contours = obs["sorted_contours"]
+            biggest_blob = contours[0]
+            if biggest_blob['x'] < 80:
                 self.__nao.start_behavior("Asje_kick_L")
-            elif obs['x'] >= 80:
+            elif biggest_blob['x'] >= 80:
                 self.__nao.start_behavior("Asje_kick_R")
 
     def implementation_update(self):

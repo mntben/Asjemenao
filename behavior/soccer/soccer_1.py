@@ -36,7 +36,7 @@ class Soccer_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 
         #Select Nao to use:
         self.nao = self.body.nao(0)
-        self.nao.say("Begin!")
+        self.nao.say("Lets play soccer!")
 
     def implementation_update(self):
 

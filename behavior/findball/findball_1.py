@@ -57,24 +57,29 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.__nao.say("Turning random")
 
         #Try to see if there is a ball in sight:
-        if (self.m.n_occurs("red.colorblob") > 0):
-            (recogtime, obs) = self.m.get_last_observation("red.colorblob")
+        if (self.m.n_occurs("combined_red") > 0):
+            (recogtime, obs) = self.m.get_last_observation("combined_red")
             if not obs == None and recogtime > self.__last_ball_recogtime:
                 #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
+                
+                contours = obs["sorted_contours"]
+                biggest_blob = contours[0]
+                print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
+                        % ("red", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                 self.__last_recogtime = recogtime
                 #Ball is found if the detected ball is big enough (thus filtering noise):
-                if obs['size'] > 0.0015:
+                if biggest_blob['surface'] > 100 and biggest_blob['surface'] < 400 and biggest_blob['width'] < 30 and biggest_blob['height'] < 30:
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_RIGHT":
                         self.__nao.say("Detected Right, now turning towards ball")
-                        self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+((obs['x']-80)*(-0.005))))
+                        self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__nao.look_forward()
                         self.__state = "FIND_FORWARD"
                         
                     elif self.__state == "FIND_LEFT":
                         self.__nao.say("Detected Left, now turning towards ball")
-                        self.__nao.walkNav(0,0,((45 * almath.TO_RAD)+((obs['x']-80)*(-0.005))))
+                        self.__nao.walkNav(0,0,((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__nao.look_forward()
                         self.__state = "FIND_FORWARD"
                         
