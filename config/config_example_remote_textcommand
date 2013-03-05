@@ -1,0 +1,31 @@
+[general]
+starting_behavior = exampleRemoteTextcommand
+
+[body]
+number_of_naos = 0
+number_of_pioneers = 0
+nao_ip_0 = nao
+nao_port_0 = 9559
+pioneer_ip_0 = pioneer
+pioneer_port_0 = 12345
+
+[sensor_integration]
+
+[speech_recognition]
+
+[vision_controller]
+update_frequency = 10
+start_port = 50000
+end_port = 52000
+
+#Startup commands and alias for each module
+modules_settings:
+    remote_textcommand = remote_TextCommand
+
+#Modules to run on each host
+modules:
+    localhost = remote_textcommand
+
+[sonar_controller]
+
+[navigation_controller]

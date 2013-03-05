@@ -1,0 +1,20 @@
+[general]
+starting_behavior = intervalestimationtest
+
+[body]
+number_of_naos = 0
+number_of_pioneers = 0
+nao_ip_0 = localhost
+nao_port_0 = 9559
+pioneer_ip_0 = localhost
+pioneer_port_0 = 12345
+
+[sensor_integration]
+
+[speech_controller]
+
+[vision_controller]
+
+[sonar_controller]
+
+[navigation_controller]

@@ -1,0 +1,12 @@
+#JSGF V1.0;
+
+grammar vcc;
+
+public <all> = [<start>] <action> the <object>;
+
+<start> = (please | kindly | could you | can you);
+
+<action> = (give [me] | get [me] | bring [me]);
+
+<object> = (cola | beer | coffee | milk);
+

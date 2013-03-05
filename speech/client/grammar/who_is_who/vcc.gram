@@ -1,0 +1,15 @@
+#JSGF V1.0;
+
+grammar vcc;
+
+public <all> = ([<say>] <name> | <confirm> | <deny> | <proceed>);
+
+<say> = (my name is | i am | i'm | people call me);
+
+<name> = (Richard | Steve | Brian | Kevin | Philip | Henry | Thomas | Joseph | Emma | Peter | (brit knee) | Michael | Daniel | Robert | Justin | Michelle | Tina | Sarah | Tony | Donna);
+
+<confirm> = (yes | [that is] (right | correct | true) | affirmative);
+
+<deny> = (no | [that is] (wrong | false));
+
+<proceed> = (proceed | continue);

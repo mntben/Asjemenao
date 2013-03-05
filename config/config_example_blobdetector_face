@@ -1,0 +1,33 @@
+[general]
+starting_behavior = exampleblobdetectorface({})
+
+[body]
+number_of_naos = 0
+number_of_pioneers = 0
+nao_ip_0 = 192.168.0.11
+nao_port_0 = 9559
+pioneer_ip_0 = localhost
+pioneer_port_0 = 12345
+
+[sensor_integration]
+
+[speech_controller]
+
+
+[vision_controller]
+update_frequency = 10
+start_port = 50000
+end_port = 52000    
+
+#Startup commands and alias for each module
+modules_settings:
+    blobdetect = blobdetector train=True inputres=160x120 outputres=160x120 video_source=webcam blob_dir=$BORG/brain/data/colorblob
+    haarface = haarface updatefreq=5 video_source=webcam verbose=True
+    
+#Modules to run on each host
+modules:
+    localhost = blobdetect haarface
+
+[sonar_controller]
+
+[navigation_controller]

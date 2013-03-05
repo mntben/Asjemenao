@@ -1,0 +1,71 @@
+#Add behaviors in the following layout, please place it in order of the alphabet (except for the tests)
+#[behavior name]
+##behavior description
+#postcondition = postcondition
+#exceptions = exception
+#description = "a description of the behavior"
+##added things to find out
+
+[example]
+postcondition = False
+description = "Just an example behavior."
+
+[example_wait]
+postcondition = False
+description = "Simple example behavior that waits for a specific observation in memory."
+
+[intervalestimationtest]
+postcondition = m.is_now('ie_test',['finished == True'])
+description = "Used to test the new BBIE implementation"
+
+[example_blobdetector]
+postcondition = False
+description = "Just a simple behavior to demonstrate the usage of the blobdetector vision module."
+
+[example_speech]
+description = "Simple example behavior that shows how to use speech recognition."
+postcondition = False
+
+[example_remote_textcommand]
+description = "Simple example behavior that shows how to the remote text command module."
+postcondition = False
+
+[test_subsume_higher]
+postcondition = False
+
+[test_subsume_lower]
+postcondition = False
+
+##### PAS behaviors ####
+
+[soccer]
+postcondition = False
+description = "The core soccer behavior."
+
+[find_ball]
+postcondition = m.is_now('ball_found',['True'])
+description = "This behavior will move the Nao around until the ball is seen in the middle of the FoV."
+
+[approach_ball]
+postcondition = m.is_now('ball_approached',['True'])
+description = "This behavior will approach a seen ball, trying to avoid obstacles along the way."
+
+[align_goal]
+postcondition = m.is_now('goal_aligned',['True'])
+description = "This behavior will circle around the ball until it and the target goal in in a line."
+
+[shoot]
+postcondition = m.is_now('goal_scored',['True'])
+description = "This behavior will try to kick a ball at the Nao's feet into the goal."
+
+[soccer_defender]
+postcondition = False
+description = "Simple defender behavior for PAS course."
+
+[newbehavior]
+postcondition = False
+
+#Just a dummy behavior:
+[dummy]
+postcondition = False
+description = "Just a dummy behavior for testing."

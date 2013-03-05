@@ -1,0 +1,12 @@
+#JSGF V1.0;
+
+grammar vcc;
+
+public <all> = <startPolite> <command> <endPolite> | to <action> first <action> (then <action>) * and then <action> | cola | fanta;
+<command> = (<action> | <action> [then] <action>) | (<action> and [then] <action>) | (<action> <action> and [then] <action>) ;
+<action> = ( grab the <object> | get the <object> | follow someone | find (the | a) <object> | go to [the] <location> | move to the <location> | introduce yourself | tell something about yourself | (leave | exit) the apartment | bring (a | the) <object> to [the] <location> | I would like the <object> | check if there is any cola left | get me (the | a) <object> | offer him a <object> | wait for the guest | welcome our guest | get me something to drink | walk forward) ;
+<object> = (cup | stapler | book | coffee | table | some food | snack | drink | bread | cola [can] | fanta [can]) ;
+<location> = (kitchen | living room | living room | bathroom | hallway | office | seat | table) ;
+<startPolite> = (please | kindly | could you | can you) * ;
+<endPolite> = [ please | thanks | thank you ];
+
