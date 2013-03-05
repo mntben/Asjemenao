@@ -563,6 +563,12 @@ class Nao(object):
 
         # Disable stiffness 
         self.set_stifness(['Body'], [0], [0.25])
+        
+    def useTopCamera(self):
+        self.setCameraParameter(kCameraSelectID, 0 )
+
+    def useBottomCamera(self):
+        self.setCameraParameter(kCameraSelectID, 1 )
 
     def localize_object_in_image(self, rect, distance=None, width=None, camera=0, lookat=True, space=motion.SPACE_NAO):
         """
