@@ -565,10 +565,51 @@ class Nao(object):
         self.set_stifness(['Body'], [0], [0.25])
         
     def useTopCamera(self):
-        self.setCameraParameter(kCameraSelectID, 0 )
+        self.__Video.setParam(18, 0)
 
     def useBottomCamera(self):
-        self.setCameraParameter(kCameraSelectID, 1 )
+        self.__Video.setParam(18, 1)
+        
+    def initCamera(self):
+        #Default Camera Settings
+        #Basic Settings
+        
+        #Color Settings
+        #Gain: 26 / Exp: 83
+        #Gain: 28 / Exp: 60
+        #Gain: 35 / Exp: 40
+        
+        #ALImageTranscriber::DEFAULT_CAMERA_AUTO_GAIN = 0; // AUTO GAIN OFF
+        self.__Video.setParam(13, 0)
+        #ALImageTranscriber::DEFAULT_CAMERA_GAIN = 26;
+        self.__Video.setParam(6, 26)
+        #ALImageTranscriber::DEFAULT_CAMERA_AUTO_WHITEBALANCE = 0; // AUTO WB OFF
+        self.__Video.setParam(12, 0)
+        #ALImageTranscriber::DEFAULT_CAMERA_BLUECHROMA = 128;
+        self.__Video.setParam(5, 128)
+        #ALImageTranscriber::DEFAULT_CAMERA_REDCHROMA = 68;
+        self.__Video.setParam(4, 68)
+        #ALImageTranscriber::DEFAULT_CAMERA_BRIGHTNESS = 140;
+        self.__Video.setParam(0, 140)
+        #ALImageTranscriber::DEFAULT_CAMERA_CONTRAST = 64;
+        self.__Video.setParam(1, 64)
+        #ALImageTranscriber::DEFAULT_CAMERA_SATURATION = 128;
+        self.__Video.setParam(2, 128)
+        #ALImageTranscriber::DEFAULT_CAMERA_HUE = 0;
+        self.__Video.setParam(3, 0)
+        
+        #Exposure length
+        #ALImageTranscriber::DEFAULT_CAMERA_AUTO_EXPOSITION = 0; // AUTO EXPOSURE OFF
+        self.__Video.setParam(11, 0)
+        #ALImageTranscriber::DEFAULT_CAMERA_EXPOSURE = 83;
+        self.__Video.setParam(17, 83)
+        
+        #Image orientation
+        #ALImageTranscriber::DEFAULT_CAMERA_HFLIP = 0;
+        self.__Video.setParam(7, 0)
+        #ALImageTranscriber::DEFAULT_CAMERA_VFLIP = 0;
+        self.__Video.setParam(8, 0)
+
 
     def localize_object_in_image(self, rect, distance=None, width=None, camera=0, lookat=True, space=motion.SPACE_NAO):
         """
