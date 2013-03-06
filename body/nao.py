@@ -582,19 +582,19 @@ class Nao(object):
         #AUTO_GAIN (AUTO GAIN OFF = 0)
         self.__Video.setParam(13, 0)
         #CAMERA_GAIN
-        self.__Video.setParam(6, 120)
+        self.__Video.setParam(6, 133)
         #AUTO_WHITEBALANCE (AUTO WB OFF = 0)
         self.__Video.setParam(12, 0)
         #CAMERA_BLUECHROMA
-        self.__Video.setParam(5, 128)
+        self.__Video.setParam(5, 131)
         #CAMERA_REDCHROMA
-        self.__Video.setParam(4, 68)
+        self.__Video.setParam(4, 70)
         #CAMERA_BRIGHTNESS
-        self.__Video.setParam(0, 140)
+        self.__Video.setParam(0, 109)
         #CAMERA_CONTRAST
-        self.__Video.setParam(1, 64)
+        self.__Video.setParam(1, 44)
         #CAMERA_SATURATION
-        self.__Video.setParam(2, 128)
+        self.__Video.setParam(2, 95)
         #CAMERA_HUE
         self.__Video.setParam(3, 0)
         
