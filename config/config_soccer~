@@ -1,0 +1,32 @@
+[general]
+starting_behavior = soccer({'target_goal':'green'})
+
+[body]
+number_of_naos = 1
+number_of_pioneers = 0
+nao_ip_0 = 129.125.178.234
+nao_port_0 = 9559
+pioneer_ip_0 = localhost
+pioneer_port_0 = 12345
+
+[sensor_integration]
+
+[speech_controller]
+
+[vision_controller]
+update_frequency = 10
+start_port = 50000
+end_port = 52000    
+
+#Startup commands and alias for each module
+modules_settings:
+#    blobdetect = blobdetector train=True nao=<nao_ip> camera=1 inputres=160x120 outputres=160x120 video_source=naovideo blob_dir=$BORG/brain/data/colorblob
+   blobdetect = blobdetector_new  nao=<nao_ip> inputres=160x120 outputres=160x120 video_source=naovideo camera=1 trainable=True targets=vision/colorblob/targets.pkl denoise_value=5 frequency=10
+
+#Modules to run on each host
+modules:
+    localhost = blobdetect
+
+[sonar_controller]
+
+[navigation_controller]
