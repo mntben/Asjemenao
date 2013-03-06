@@ -1,5 +1,5 @@
 [general]
-starting_behavior = soccer({'target_goal':'green'})
+starting_behavior = soccer({'target_goal':'yellow'})
 
 [body]
 number_of_naos = 1
