@@ -22,15 +22,15 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         self.__nao.look_forward()
         self.__last_ball_recogtime = 0
         
-        # With a yellow goal:
+        # With a self.target_goal goal:
         while self.__checked is False:
-            if (self.m.n_occurs("combined_yellow") > 0):
-                (recogtime, obs) = self.m.get_last_observation("combined_yellow")
+            if (self.m.n_occurs("combined_"+self.target_goal) > 0):
+                (recogtime, obs) = self.m.get_last_observation("combined_"+self.target_goal)
                 if not obs == None and recogtime > self.__last_ball_recogtime:
                     contours = obs["sorted_contours"]
                     biggest_blob = contours[0]
                     print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
-                        % ("yellow", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
+                        % (self.target_goal, biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                     self.__last_recogtime = recogtime
                     # Goal is found if the detected blob is big enough (thus filtering noise)
                     if biggest_blob['height'] > 15 and biggest_blob['surface'] > 50 and biggest_blob['x'] > 10 and biggest_blob['x'] < 130:
