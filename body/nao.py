@@ -500,14 +500,22 @@ class Nao(object):
         Makes the Nao look completely down.
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadPitch", 25 * almath.TO_RAD, 1.0, True)
+        names  = ["HeadYaw"]
+        angles  = [25]
+        angles[:] = [x*almath.TO_RAD for x in angles]
+        fractionMaxSpeed  = 0.2
+        self.get_proxy("motion").setAngles(names, angles, fractionMaxSpeed)      
 
     def look_horizontal(self):
         """
         Makes the Nao look completely horizontal.
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
+        names  = ["HeadPitch"]
+        angles  = [0]
+        angles[:] = [x*almath.TO_RAD for x in angles]
+        fractionMaxSpeed  = 0.2
+        self.get_proxy("motion").setAngles(names, angles, fractionMaxSpeed)      
     
     def look_forward(self):
         """
@@ -516,8 +524,9 @@ class Nao(object):
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
         names  = ["HeadYaw", "HeadPitch"]
         angles  = [0, 0]
+        angles[:] = [x*almath.TO_RAD for x in angles]
         fractionMaxSpeed  = 0.2
-        self.get_proxy("motion").setAngles(names, angles, fractionMaxSpeed)
+        self.get_proxy("motion").setAngles(names, angles, fractionMaxSpeed)      
         
     def look_forward_down(self):
         """
@@ -535,14 +544,22 @@ class Nao(object):
         Makes the Nao look right.
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadYaw", -(45 * almath.TO_RAD), 1.0, True)
+        names  = ["HeadYaw"] 
+        angles  = [-45]
+        angles[:] = [x*almath.TO_RAD for x in angles]
+        fractionMaxSpeed  = 0.2
+        self.get_proxy("motion").setAngles(names, angles, fractionMaxSpeed)      
 
     def look_left(self):
         """
         Makes the Nao look left.
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadYaw", 45 * almath.TO_RAD, 1.0, True)
+        names  = ["HeadYaw"]
+        angles  = [45]
+        angles[:] = [x*almath.TO_RAD for x in angles]
+        fractionMaxSpeed  = 0.2
+        self.get_proxy("motion").setAngles(names, angles, fractionMaxSpeed)      
 
     def sit_down(self):
         """
