@@ -111,7 +111,7 @@ class Nao(object):
         self.__Motion.walkTo(X, Y, Theta)
         
     def moveToward(self, X=0, Y=0, Theta=0):
-        self.__Navigation.moveToward(X, Y, Theta)
+        self.__Motion.moveToward(X, Y, Theta)
 
     def walkNav(self, X=0, Y=0, Theta=0, distance = 0.4):
         self.__Navigation.setSecurityDistance(distance)
