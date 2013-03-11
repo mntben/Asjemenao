@@ -69,3 +69,7 @@ postcondition = False
 [dummy]
 postcondition = False
 description = "Just a dummy behavior for testing."
+
+[basicloc]
+postcondition = False
+description = "The core location behavior."

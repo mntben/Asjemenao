@@ -29,7 +29,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if not obs == None and recogtime > self.__last_ball_recogtime:
                     contours = obs["sorted_contours"]
                     biggest_blob = contours[0]
-                    if contours[1]:
+                    if len(contours) > 1:
                         second_biggest_blob = contours[1]  
                     print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                         % (self.target_goal, biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
@@ -38,10 +38,15 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     if biggest_blob['height'] > 15 and biggest_blob['surface'] > 40 and biggest_blob['x'] > 10 and biggest_blob['x'] < 130:
                         print "Goal Detected"
                         if self.__state == "FIND":       
-                            if second_biggest_blob['surface'] > 40:
-                                self.__checked = True
-                                self.__nao.say("In front of the goal")
-                                self.m.add_item('goal_aligned',time.time(),{})						
+                            if len(contours) > 1:
+                                print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
+                                    % (self.target_goal, second_biggest_blob['x'], second_biggest_blob['y'], second_biggest_blob['width'], second_biggest_blob['height'], second_biggest_blob['surface'])
+                                if second_biggest_blob['surface'] > 20:
+                                    self.__checked = True
+                                    self.__nao.say("In front of the goal.. maybe")
+                                    self.m.add_item('goal_aligned',time.time(),{})
+                            else:
+                                self.__state = "FIND_RIGHT"
                         elif self.__state == "FIND_RIGHT":
                             self.__nao.say("Turning right")
                             self.__nao.walkNav(0.15, 0.15,-(0.78))
