@@ -39,7 +39,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         print "Goal Detected"
                         if self.__state == "FIND":       
                             if len(contours) > 1:
-                                print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
+                                print "Second biggest %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                                     % (self.target_goal, second_biggest_blob['x'], second_biggest_blob['y'], second_biggest_blob['width'], second_biggest_blob['height'], second_biggest_blob['surface'])
                                 if second_biggest_blob['surface'] > 20:
                                     self.__checked = True
