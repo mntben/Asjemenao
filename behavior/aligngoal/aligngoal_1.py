@@ -29,6 +29,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if not obs == None and recogtime > self.__last_ball_recogtime:
                     contours = obs["sorted_contours"]
                     biggest_blob = contours[0]
+                    #if contours[1]:
                     second_biggest_blob = contours[1]  
                     print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                         % (self.target_goal, biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])

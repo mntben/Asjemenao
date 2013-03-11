@@ -110,7 +110,7 @@ class Nao(object):
     def walk(self, X=0, Y=0, Theta=0):
         self.__Motion.walkTo(X, Y, Theta)
         
-    def moveToward(self, X=0, y=0, Theta=0):
+    def moveToward(self, X=0, Y=0, Theta=0):
         self.__Navigation.moveToward(X, Y, Theta)
 
     def walkNav(self, X=0, Y=0, Theta=0, distance = 0.4):
