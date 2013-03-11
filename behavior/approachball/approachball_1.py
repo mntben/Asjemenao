@@ -48,7 +48,7 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                             #~ self.__nao.walkNav(0, 0, -0.1)
                             #~ pass
                     #Walk a bit if the ball is not really close:
-                    if biggest_blob['y'] < 80 and self.__is_looking_horizontal:
+                    if biggest_blob['y'] < 80:
                         #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
                         Y = ((biggest_blob['y']-80)*(-0.00625)+0.5)
                         Theta = ((biggest_blob['x']-80)*(-0.004))
