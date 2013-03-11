@@ -49,17 +49,17 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                     #Walk a bit if the ball is not really close:
                     if biggest_blob['y'] < 80 and self.__is_looking_horizontal:
                         #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
-                        self.__nao.moveToward(((biggest_blob['y']-80)*(-0.01)), 0, ((biggest_blob['x']-80)*(-0.004)))
-                        pass
-                    elif biggest_blob['y'] < 80 and not self.__is_looking_horizontal:
-                        self.__nao.moveToward(((biggest_blob['y']-85)*(-0.01)), 0, ((biggest_blob['x']-80)*(-0.005)))
+                        Y = ((biggest_blob['y']-80)*(-0.00625)+0.5)
+                        Theta = ((biggest_blob['x']-80)*(-0.002083))
+                        self.__nao.moveToward(Y, 0, Theta)
                         pass
                     elif self.__is_looking_horizontal:
                         self.__nao.look_down()
                         self.__is_looking_horizontal = False
         
         # Timeout after 10 seconds if the ball is not seen anymore:
-        if (time.time() - self.__ball_last_seen) > 10:
-            self.__nao.say("I can not see the ball anymore!")
+        if (time.time() - self.__ball_last_seen) > 2:
+            self.__nao.stopwalk()
+            self.__nao.say("Can't see ball!")
             self.m.add_item('subsume_stopped',time.time(),{'reason':'Ball no longer seen.'})
             self.idling = True

@@ -124,7 +124,7 @@ class Nao(object):
         return self.__Motion.moveIsActive()
         
     def stopwalk(self):
-        self.__Motion.stopWalk()
+        self.__Motion.stopMove()
         
     def setWalkTargetVelocity(self, x , y, theta, frequency):
         self.__Motion.setWalkTargetVelocity(x , y, theta, frequency)
