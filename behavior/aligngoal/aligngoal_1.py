@@ -49,7 +49,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                                 second_biggest_blob = contours[1]  
                                 print "Second biggest %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                                     % (self.target_goal, second_biggest_blob['x'], second_biggest_blob['y'], second_biggest_blob['width'], second_biggest_blob['height'], second_biggest_blob['surface'])
-                                if second_biggest_blob['height'] > 10 and second_biggest_blob['surface'] > 100:
+                                if biggest_blob['height'] > 10 and biggest_blob['surface'] > 100:
                                     print "Goal Detected"
                                     self.__checked = True
                                     self.__nao.say("In front of the goal")
@@ -66,62 +66,63 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                             self.__nao.walkNav(0.15, -(0.15), 0.78, 0.01)
                             self.__nao.look_forward()
                             AlignGoal_x.__state = "FIND"
-                        elif AlignGoal_x.__state == "FIND_UP":
-                            self.__nao.look_forward()
-                            self.__nao.useBottomCamera()
-                            AlignGoal_x.__state = "FIND" 
-                    elif self.m.n_occurs("combined_green") > 0:
-                        (recogtime, obs) = self.m.get_last_observation("combined_green")
-                        if not obs == None and recogtime > self.__last_ball_recogtime:
-                            contours = obs["sorted_contours"]
-                            biggest_blob = contours[0]
-                            if biggest_blob['height'] > 10 and biggest_blob['surface'] > 200:
-                                print "Green marker seen.. moving to the right!"
-                                self.__nao.walkNav(0.15, 0.15,-(1.570), 0.01)
-                                self.__greenturn = True
-                        elif AlignGoal_x.__state == "FIND_UP" and self.__greenturn == True:
-                            self.__checked = True
-                            self.__nao.say("Kicking, whooo")
-                            self.__nao.useBottomCamera()
-                            self.m.add_item('goal_aligned',time.time(),{})                           
-                        else:
-                            self.find_goal()
-                    elif AlignGoal_x.__state == "FIND_UP" and self.__greenturn == True:
-                        self.__checked = True
-                        self.__nao.say("Kicking, whooo")
-                        self.__nao.useBottomCamera()
-                        self.m.add_item('goal_aligned',time.time(),{})                            
+                        #~ elif AlignGoal_x.__state == "FIND_UP":
+                            #~ self.__nao.look_forward()
+                            #~ self.__nao.useBottomCamera()
+                            #~ AlignGoal_x.__state = "FIND" 
+                    #~ elif self.m.n_occurs("combined_green") > 0:
+                        #~ (recogtime, obs) = self.m.get_last_observation("combined_green")
+                        #~ if not obs == None and recogtime > self.__last_ball_recogtime:
+                            #~ contours = obs["sorted_contours"]
+                            #~ biggest_blob = contours[0]
+                            #~ if biggest_blob['height'] > 10 and biggest_blob['surface'] > 200:
+                                #~ print "Green marker seen.. moving to the right!"
+                                #~ self.__nao.walkNav(0.15, 0.15,-(1.570), 0.01)
+                                #~ self.__greenturn = True
+                        #~ elif AlignGoal_x.__state == "FIND_UP" and self.__greenturn == True:
+                            #~ self.__checked = True
+                            #~ self.__nao.say("Kicking, whooo")
+                            #~ self.__nao.useBottomCamera()
+                            #~ self.m.add_item('goal_aligned',time.time(),{})                           
+                        #~ else:
+                            #~ self.find_goal()
+                    #~ elif AlignGoal_x.__state == "FIND_UP" and self.__greenturn == True:
+                        #~ self.__checked = True
+                        #~ self.__nao.say("Kicking, whooo")
+                        #~ self.__nao.useBottomCamera()
+                        #~ self.m.add_item('goal_aligned',time.time(),{})                            
                     else:
-                         self.find_goal()                   
+						print "Blob not big enough"
+						self.find_goal()                  
             else:
                 self.find_goal()	
 
     def find_goal(self):
+        #~ if AlignGoal_x.__state == "FIND":
+            #~ self.__nao.useTopCamera()
+            #~ AlignGoal_x.__lookuptime = time.time()
+            #~ self.__nao.say("Looking up")
+            #~ AlignGoal_x.__state = "FIND_UP"
         if AlignGoal_x.__state == "FIND":
-            self.__nao.useTopCamera()
-            AlignGoal_x.__lookuptime = time.time()
-            self.__nao.say("Looking up")
-            AlignGoal_x.__state = "FIND_UP"
-        elif AlignGoal_x.__state == "FIND_UP" and ( time.time() - AlignGoal_x.__lookuptime ) > 5:
-            self.__nao.useBottomCamera()
+            #self.__nao.useBottomCamera()
             self.__nao.look_right()
             AlignGoal_x.__state = "FIND_RIGHT"
-            self.__nao.say("Looking Right")
+            #self.__nao.say("Looking Right")
         elif AlignGoal_x.__state == "FIND_RIGHT":
             self.__nao.look_forward()
             self.__nao.look_left()
             AlignGoal_x.__state = "FIND_LEFT"
-            self.__nao.say("Looking left")
+            #self.__nao.say("Looking left")
         elif AlignGoal_x.__state == "FIND_LEFT":
             self.__nao.look_forward()
             self.__nao.look_right()
             AlignGoal_x.__state = "FIND"
-            self.__nao.say("Looking forward and turning right")
+            #self.__nao.say("Looking forward and turning right")
             self.__nao.walkNav(0.15, 0.15,-(1.570), 0.01)  
 
     def timeout(self):
         if not self.__nao.isMoving(): 
-            print "Not moving.."
+            #print "Not moving.."
             if (time.time() - self.__start_time) > 10:
                 print "Just kicking"
                 #self.m.add_item('subsume_stopped',time.time(),{'reason':'Ball no longer seen.'})

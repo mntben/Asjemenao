@@ -62,8 +62,19 @@ description = "This behavior will try to kick a ball at the Nao's feet into the 
 postcondition = False
 description = "Simple defender behavior for PAS course."
 
+[find_ball_defender]
+postcondition = m.is_now('ball_found',['True'])
+description = "This behavior will move the defender Nao around until the ball is seen in the middle of the FoV."
+
+[sitball]
+postcondition = m.is_now('on_ground',['True'])
+description = "This behavior will sit the ball on the ground."
+
+
 [newbehavior]
 postcondition = False
+
+
 
 #Just a dummy behavior:
 [dummy]

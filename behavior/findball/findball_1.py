@@ -37,7 +37,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if self.__state == "FIND":
                     self.__nao.look_right()
                     self.__state = "FIND_RIGHT"
-                    self.__nao.say("Looking Right")
+                    #self.__nao.say("Looking Right")
                 elif self.__state == "FIND_RIGHT":
                     self.__nao.look_forward()
                     self.__state = "FIND_FORWARD"
@@ -45,19 +45,19 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 elif self.__state == "FIND_FORWARD":
                     self.__nao.look_left()
                     self.__state = "FIND_LEFT"
-                    self.__nao.say("Looking left")
+                    #self.__nao.say("Looking left")
                 elif self.__state == "FIND_LEFT":
                     self.__nao.look_down()
                     self.__state = "FIND_DOWN_L"
-                    self.__nao.say("Looking down left")
+                    #self.__nao.say("Looking down left")
                 elif self.__state == "FIND_DOWN_L":
                     self.__nao.look_right()
                     self.__state = "FIND_DOWN_M"
-                    self.__nao.say("Looking down center") 
+                    #self.__nao.say("Looking down center") 
                 elif self.__state == "FIND_DOWN_M":
                     self.__nao.look_right()
                     self.__state = "FIND_DOWN_R"
-                    self.__nao.say("Looking down right")                                                          
+                    #self.__nao.say("Looking down right")                                                          
                 elif self.__state == "FIND_DOWN_R":
                     self.__nao.look_forward()
                     self.__nao.walkNav(0.2, 0, 0)
@@ -66,7 +66,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 elif self.__state == "WALK":
                     self.__nao.walkNav(0, 0, (90 * almath.TO_RAD), 0.01)
                     self.__state = "FIND"
-                    self.__nao.say("Turning random")
+                    #self.__nao.say("Turning random")
 
         #Try to see if there is a ball in sight:
         if (self.m.n_occurs("combined_red") > 0):
@@ -84,33 +84,33 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_RIGHT":
-                        self.__nao.say("Detected Right, now turning towards ball")
+                        #self.__nao.say("Detected Right, now turning towards ball")
                         self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__state = "FIND_FORWARD"                      
                     elif self.__state == "FIND_LEFT":
-                        self.__nao.say("Detected Left, now turning towards ball")
+                        #self.__nao.say("Detected Left, now turning towards ball")
                         self.__nao.walkNav(0,0,((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__state = "FIND_FORWARD" 
                                                                         
                     # Once the ball is properly found, use: self.m.add_item('ball_found',time.time(),{}) to finish this behavior.
                     if self.__state == "FIND_FORWARD":
                         self.__nao.look_forward() 
-                        self.__nao.say("Now in front of the ball")
+                        #self.__nao.say("Now in front of the ball")
                         self.m.add_item('ball_found',time.time(),{})
 
                 if biggest_blob['surface'] > 400 and biggest_blob['surface'] < 900 and biggest_blob['width'] < 30 and biggest_blob['height'] < 30:
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_DOWN_L":
-                        self.__nao.say("Detected Left, now turning towards ball")
+                        #self.__nao.say("Detected Left, now turning towards ball")
                         self.__nao.walkNav(0,0,((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__nao.look_forward_down()
                         self.__state = "FIND_FORWARD_DOWN"                        
                     elif self.__state == "FIND_DOWN_M":
-                        self.__nao.say("Detected in front of my feet")
+                        #self.__nao.say("Detected in front of my feet")
                         self.__state = "FIND_FORWARD_DOWN"  
                     elif self.__state == "FIND_DOWN_R":
-                        self.__nao.say("Detected right, now turning towards ball")
+                        #self.__nao.say("Detected right, now turning towards ball")
                         self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__nao.look_forward_down()
                         self.__state = "FIND_FORWARD_DOWN"  
@@ -118,5 +118,5 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     # Once the ball is properly found, use: self.m.add_item('ball_found',time.time(),{}) to finish this behavior.
                     if self.__state == "FIND_FORWARD_DOWN":
                         self.__nao.look_forward_down() 
-                        self.__nao.say("Now in front of the ball")
+                        #self.__nao.say("Now in front of the ball")
                         self.m.add_item('ball_found',time.time(),{})

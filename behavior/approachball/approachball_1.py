@@ -34,7 +34,7 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                         % ("red", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                     self.__ball_last_seen = time.time()
                     #Is the ball in the correct location?:
-                    if biggest_blob['y'] > 75 and biggest_blob['x'] > 20 and biggest_blob['x'] < 120 and not self.__is_looking_horizontal:
+                    if biggest_blob['y'] > 70 and biggest_blob['x'] > 20 and biggest_blob['x'] < 120 and not self.__is_looking_horizontal:
                         # If the ball is seen close enough, use self.m.add_item('ball_approached',time.time(),{}) to finish this behavior.
                         self.__nao.stopwalk()
                         self.m.add_item('ball_approached', time.time(),{}) 
@@ -51,7 +51,7 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                     if biggest_blob['y'] < 80:
                         #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
                         Y = ((biggest_blob['y']-80)*(-0.00625)+0.5)
-                        Theta = ((biggest_blob['x']-80)*(-0.004))
+                        Theta = ((biggest_blob['x']-80)*(-0.001))
                         self.__nao.moveToward(Y, 0, Theta)
                         pass
                     elif self.__is_looking_horizontal:
