@@ -37,8 +37,8 @@ class Soccer_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         #Select Nao to use:
         self.nao = self.body.nao(0)
         self.nao.say("Lets play soccer!")
-        self.nao.useTopCamera()
-        self.nao.initCamera()
+        #self.nao.useTopCamera()
+        #self.nao.initCamera()
         self.nao.useBottomCamera()
         self.nao.initCamera()
 
