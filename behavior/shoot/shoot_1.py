@@ -21,9 +21,10 @@ class Shoot_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             (recogtime, obs) = self.m.get_last_observation("combined_red")
             contours = obs["sorted_contours"]
             biggest_blob = contours[0]
-            if biggest_blob['x'] < 80:
+            blob_center_x = biggest_blob['x'] + biggest_blob['width']/2
+            if blob_center_x < 80:
                 self.__nao.start_behavior("Asje_kick_L")
-            elif biggest_blob['x'] >= 80:
+            elif blob_center_x >= 80:
                 self.__nao.start_behavior("Asje_kick_R")
 
     def implementation_update(self):
