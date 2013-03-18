@@ -21,7 +21,7 @@ end_port = 52000
 #Startup commands and alias for each module
 modules_settings:
 #    blobdetect = blobdetector train=True nao=<nao_ip> camera=1 inputres=160x120 outputres=160x120 video_source=naovideo blob_dir=$BORG/brain/data/colorblob
-   blobdetect = blobdetector_new  nao=<nao_ip> inputres=160x120 outputres=160x120 video_source=naovideo camera=1 trainable=True targets=vision/colorblob/other_targets.pkl denoise_value=5 frequency=10       
+   blobdetect = blobdetector_new  nao=<nao_ip> inputres=160x120 outputres=160x120 video_source=naovideo camera=1 trainable=True targets=vision/colorblob/new_targets.pkl denoise_value=5 frequency=10       
 
 #Modules to run on each host
 modules:

@@ -29,7 +29,7 @@ class ExampleBlobdetector_x(basebehavior.behaviorimplementation.BehaviorImplemen
                     blob[2] = time.time()
                     print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                         % (blob[0], obs['x'], obs['y'], obs['width'], obs['height'], obs['surface'])
-                    if obs['surface'] > 300 and not blob[1]:
+                    if obs['surface'] > 150 and not blob[1]:
                         self.__nao.say("Yeah, ok I found the %s blob." % blob[0])
                         blob[1] = True
             if (time.time() - blob[2]) > 10:

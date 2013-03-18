@@ -107,17 +107,17 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             #self.__nao.useBottomCamera()
             self.__nao.look_right()
             AlignGoal_x.__state = "FIND_RIGHT"
-            #self.__nao.say("Looking Right")
+            self.__nao.say("Looking Right")
         elif AlignGoal_x.__state == "FIND_RIGHT":
             self.__nao.look_forward()
             self.__nao.look_left()
             AlignGoal_x.__state = "FIND_LEFT"
-            #self.__nao.say("Looking left")
+            self.__nao.say("Looking left")
         elif AlignGoal_x.__state == "FIND_LEFT":
             self.__nao.look_forward()
             self.__nao.look_right()
             AlignGoal_x.__state = "FIND"
-            #self.__nao.say("Looking forward and turning right")
+            self.__nao.say("Looking forward and turning right")
             self.__nao.walkNav(0.15, 0.15,-(1.570), 0.01)  
 
     def timeout(self):
