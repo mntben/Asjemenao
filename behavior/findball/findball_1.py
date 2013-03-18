@@ -80,7 +80,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         % ("red", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                 self.__last_recogtime = recogtime
                 #Ball is found if the detected ball is big enough (thus filtering noise):
-                if biggest_blob['surface'] > 100 and biggest_blob['surface'] < 500 and biggest_blob['width'] < 30 and biggest_blob['height'] < 30:
+                if biggest_blob['surface'] >60 and biggest_blob['surface'] < 500 and biggest_blob['width'] < 30 and biggest_blob['height'] < 30:
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_RIGHT":
