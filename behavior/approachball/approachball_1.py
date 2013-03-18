@@ -47,11 +47,11 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                         return
                     if blob_center_y < 90:
                         if self.__is_looking_horizontal:
-                            X = ((((((blob_center_y -90)/10)**2)/81)*0.25)+0.75)
+                            X = (((((blob_center_y -90)/90)**2)*0.25)+0.75)
                         else:
-                            X = ((((((blob_center_y -90)/10)**2)/81)*0.75)+0.25)
+                            X = (((((blob_center_y -90)/90)**2)*0.75)+0.25)
                         
-                        Theta = math.copysign(((((blob_center_x -80)/20)**2)/16), ((blob_center_x -80)*-1))
+                        Theta = math.copysign(((((blob_center_x -80)/80)**2)/6), ((blob_center_x -80)*-1))
                         #Value found after enourmous amounts of experiments by trial and error
                         self.__nao.moveToward(X, 0, Theta)
                         print "blob_center_Y=%d    Walk_X=%f,  blob_center_x=%d  Walk_Theta=%f" % (blob_center_y, X, blob_center_x, Theta)
