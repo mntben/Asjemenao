@@ -510,7 +510,7 @@ class Nao(object):
         Makes the Nao look completely horizontal.
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
+        self.get_proxy("motion").angleInterpolation("HeadYaw", 0, 1.0, True)
     
     def look_forward(self):
         """
@@ -524,7 +524,8 @@ class Nao(object):
         """
         Makes the Nao look straigth forward
         """
-        self.get_proxy("motion").setStiffnesses("Head", 1.0) 
+        self.get_proxy("motion").setStiffnesses("Head", 1.0)
+        self.get_proxy("motion").angleInterpolation("HeadPitch", 25 * almath.TO_RAD, 1.0, True) 
         self.get_proxy("motion").angleInterpolation("HeadYaw", 0, 1.0, True)        
     
     def look_right(self):
