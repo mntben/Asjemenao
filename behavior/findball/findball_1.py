@@ -85,12 +85,12 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     #self.__wait = True
                     if self.__state == "FIND_RIGHT":
                         #self.__nao.say("Detected Right, now turning towards ball")
-                        self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+(((biggest_blob['x']-80)/80)*(-30))))
+                        self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+(((biggest_blob['x']-80)/80)*(30))))
                         #normalisatie naar 1 (80/80), vervolgens naar graden (FOV camera = 60 deg, dus helft is 30 deg)
                         self.__state = "FIND_FORWARD"                      
                     elif self.__state == "FIND_LEFT":
                         #self.__nao.say("Detected Left, now turning towards ball")
-                        self.__nao.walkNav(0,0,((45 * almath.TO_RAD)+(((biggest_blob['x']-80)/80)*30)))
+                        self.__nao.walkNav(0,0,((45 * almath.TO_RAD)+(((biggest_blob['x']-80)/80)*(-30))))
                         #normalisatie naar 1 (-80/80), vervolgens naar graden (FOV camera = 60 deg, dus helft is 30 deg)
                         self.__state = "FIND_FORWARD" 
                                                                         
