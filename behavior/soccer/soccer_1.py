@@ -24,7 +24,7 @@ class Soccer_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         #define list of sub-behavior here
         self.findball = self.ab.findball({})
         self.approachball = self.ab.approachball({})
-        self.aligngoal = self.ab.aligngoal({'target_goal': self.target_goal})
+        self.aligngoal = self.ab.aligngoal({'target_goal': self.target_goal, 'own_goal':self.own_goal})
         self.shoot = self.ab.shoot({'target_goal': self.target_goal})
         
         self.selected_behaviors = [ \

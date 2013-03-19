@@ -93,7 +93,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         % ("red", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                 self.__last_recogtime = recogtime
                 #Ball is found if the detected ball is big enough (thus filtering noise):
-                if biggest_blob['surface'] >60 and biggest_blob['surface'] < 500 and biggest_blob['width'] < 30 and biggest_blob['height'] < 30:
+                if biggest_blob['surface'] >30 and biggest_blob['surface'] < 500 and biggest_blob['width'] < 50 and biggest_blob['height'] < 50:
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_RIGHT":
@@ -114,7 +114,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         #self.__nao.say("Now in front of the ball")
                         self.m.add_item('ball_found',time.time(),{})
 
-                if biggest_blob['surface'] > 400 and biggest_blob['surface'] < 900 and biggest_blob['width'] < 30 and biggest_blob['height'] < 30:
+                if biggest_blob['surface'] > 400 and biggest_blob['surface'] < 900 and biggest_blob['width'] < 50 and biggest_blob['height'] < 50:
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_DOWN_L":

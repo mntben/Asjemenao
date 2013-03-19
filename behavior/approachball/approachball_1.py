@@ -32,7 +32,7 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                 contours = obs["sorted_contours"]
                 biggest_blob = contours[0]
                 #Ball is found if the detected ball is big enough (thus filtering noise):
-                if biggest_blob['surface'] > 100 and biggest_blob['surface'] < 950:
+                if biggest_blob['surface'] > 30 and biggest_blob['surface'] < 950:
                     #print "Approaching: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                     #    % ("red", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                     self.__ball_last_seen = time.time()
