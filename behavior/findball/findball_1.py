@@ -51,13 +51,13 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     #self.__nao.say("Looking left")
                 elif self.__state == "FIND_LEFT":
                     self.__nao.look_forward_down()
-                    self.__state = "FIND_DOWN_M"
-                    #self.__nao.say("Looking down center")
-                elif self.__state == "FIND_DOWN_M":
-                    self.__nao.look_left()
                     self.__state = "FIND_DOWN_L"
-                    #self.__nao.say("Looking down left") 
+                    #self.__nao.say("Looking down center")
                 elif self.__state == "FIND_DOWN_L":
+                    self.__nao.look_horizontal()
+                    self.__state = "FIND_DOWN_M"
+                    #self.__nao.say("Looking down left") 
+                elif self.__state == "FIND_DOWN_M":
                     self.__nao.look_right()
                     self.__state = "FIND_DOWN_R"
                     #self.__nao.say("Looking down right")  
