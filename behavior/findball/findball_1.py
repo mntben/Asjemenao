@@ -52,32 +52,25 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 elif self.__state == "FIND_LEFT":
                     self.__nao.look_forward_down()
                     self.__state = "FIND_DOWN_M"
-                    #self.__nao.say("Looking down left")
+                    #self.__nao.say("Looking down center")
                 elif self.__state == "FIND_DOWN_M":
                     self.__nao.look_left()
                     self.__state = "FIND_DOWN_L"
-                    #self.__nao.say("Looking down center") 
+                    #self.__nao.say("Looking down left") 
                 elif self.__state == "FIND_DOWN_L":
-                    self.__nao.look_forward_down()
                     self.__nao.look_right()
                     self.__state = "FIND_DOWN_R"
                     #self.__nao.say("Looking down right")  
                 elif self.__state == "FIND_DOWN_R":
-                    self.__nao.look_forward_down()
-                    self.__state = "FIND_DOWN_M2"
-                    #self.__nao.say("Looking down center") 
-                elif self.__state == "FIND_DOWN_M2":
-                    self.__nao.look_forward_down()
-                    self.__nao.look_right()
-                    self.__state = "FIND_DOWN_R2"
-                    #self.__nao.say("Looking down right")                                                             
-                elif self.__state == "FIND_DOWN_R2":
                     self.__nao.look_forward()
+                    self.__state = "WALK_PREP"
+                    #self.__nao.say("Looking forward again")                                                            
+                elif self.__state == "WALK_PREP":
                     self.__nao.walkNav(0.2, 0, 0)
                     self.__state = "WALK"
                     #self.__nao.say("Looking forward, walking random")
                 elif self.__state == "WALK":
-                    self.__nao.walkNav(0, 0, (90 * almath.TO_RAD), 0.01)
+                    self.__nao.walkNav(0, 0, (120 * almath.TO_RAD), 0.01)
                     self.__state = "FIND"
                     #self.__nao.say("Turning random")
 
@@ -86,7 +79,6 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             (recogtime, obs) = self.m.get_last_observation("combined_red")
             if not obs == None and recogtime > time.time()-2:
                 #print "red: x=%d, y=%d, size=%f" % (obs['x'], obs['y'], obs['size'])
-                # bla
                 contours = obs["sorted_contours"]
                 biggest_blob = contours[0]
                 print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
@@ -123,10 +115,10 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         self.__nao.look_forward_down()
                         print "Looking forward down left"
                         self.__state = "FIND_FORWARD_DOWN"                        
-                    elif self.__state == "FIND_DOWN_M" or self.__state == "FIND_DOWN_M2" :
+                    elif self.__state == "FIND_DOWN_M":
                         #self.__nao.say("Detected in front of my feet")
                         self.__state = "FIND_FORWARD_DOWN"  
-                    elif self.__state == "FIND_DOWN_R" or self.__state == "FIND_DOWN_R2":
+                    elif self.__state == "FIND_DOWN_R":
                         #self.__nao.say("Detected right, now turning towards ball")
                         self.__nao.walkNav(0,0,-((45 * almath.TO_RAD)+((biggest_blob['x']-80)*(-0.005))))
                         self.__nao.look_forward_down()
