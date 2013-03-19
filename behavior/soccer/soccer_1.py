@@ -13,9 +13,11 @@ class Soccer_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 
         try:
             self.target_goal # This should be specified in the config, but this is to catch it.
+            self.own_goal
         except:
-            print "You should specify your target goal as an argument in the config!"
+            print "You should specify your target and own goal as an argument in the config!"
             self.target_goal = "yellow"
+            self.own_goal = "blue"
 
         # The four sub-behaviors defined here are the steps in our soccer behavior.
 
@@ -49,6 +51,6 @@ class Soccer_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             self.restart_time = time.time()
             self.findball = self.ab.findball({})
             self.approachball = self.ab.approachball({})
-            self.aligngoal = self.ab.aligngoal({'target_goal': self.target_goal})
+            self.aligngoal = self.ab.aligngoal({'target_goal': self.target_goal, 'own_goal':self.own_goal})
             self.shoot = self.ab.shoot({'target_goal': self.target_goal})
             return
