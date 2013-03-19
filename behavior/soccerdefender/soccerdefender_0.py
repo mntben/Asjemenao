@@ -24,8 +24,6 @@ class SoccerDefender_x(basebehavior.behaviorimplementation.BehaviorImplementatio
         #Select Nao to use:
         self.nao = self.body.nao(0)
         self.nao.say("Lets defend the goal!")
-        self.nao.useTopCamera()
-        self.nao.initCamera()
         self.nao.useBottomCamera()
         self.nao.initCamera()
         
