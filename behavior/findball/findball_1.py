@@ -15,6 +15,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
     def implementation_init(self):
         self.__nao = self.body.nao(0)
         self.__nao.say("Find!")
+        
         self.__start_time = time.time()
         self.__nao.complete_behavior("standup")
         #Make sure the robot is standing and looks horizontal:
