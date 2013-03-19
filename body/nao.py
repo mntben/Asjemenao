@@ -772,6 +772,12 @@ class Nao(object):
         pitch = HEAD_PITCH + center_pitch
         self.set_angles(['HeadYaw', 'HeadPitch'], [yaw, pitch], 0.2, radians=True)
         
+    def wait_for(self, seconds):
+        begin_time = time.time()
+        while ((begintime+second) > time.time()):
+            #trololo
+        
+        
 
 
 #########

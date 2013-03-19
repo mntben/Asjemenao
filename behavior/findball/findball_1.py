@@ -74,6 +74,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.__nao.walkNav(0, 0, (120 * almath.TO_RAD), 0.01)
                     self.__state = "FIND"
                     #self.__nao.say("Turning random")
+                self.__nao.wait_for(0.5)
 
         #Try to see if there is a ball in sight:
         if (self.m.n_occurs("combined_red") > 0):
