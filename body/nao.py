@@ -774,7 +774,8 @@ class Nao(object):
         
     def wait_for(self, seconds):
         begin_time = time.time()
-        while ((begintime+second) > time.time()):
+        while ((begin_time + seconds) > time.time()):
+			print "waiting"
             #trololo
         
         
