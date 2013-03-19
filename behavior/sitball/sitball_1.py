@@ -13,7 +13,7 @@ class Sitball_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 		self.idling = False
 		self.__start_time = time.time()
 		self.__nao = self.body.nao(0)
-		self.__nao.start_behavior("sitdown")   
+		self.__nao.start_behavior("Asje_sitdown")   
 		self.__nao.look_down()
 
 	def implementation_update(self):
