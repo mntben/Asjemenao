@@ -22,18 +22,6 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
     def implementation_update(self):   
         if self.idling:
             return    
-     
-        (recogtime, obs) = self.m.get_last_observation("combined_yellow")
-        contours = obs["sorted_contours"]
-        biggest_blob = contours[0]
-        print "Approaching: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
-            % ("yellow", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
-        (recogtime, obs) = self.m.get_last_observation("combined_blue")
-        contours = obs["sorted_contours"]
-        biggest_blob = contours[0]
-        print "Approaching: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
-            % ("blue", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
-        
         
         if not self.__nao.isMoving(): 
             if (time.time() - self.__start_time) > 20:
@@ -85,7 +73,10 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if biggest_target['surface'] >= 2000:
                     print "Big goal"
                     self.idling = True
-                    self.__nao.walkNav(0,0,headAngle)
+                    if self.__state == "F2":
+                        self.__nao.walkNav(0.15,0.15,headAngle)
+                    elif self.__state == "F3":
+                        self.__nao.walkNav(0.15,-(0.15),headAngle)
                     self.m.add_item('goal_aligned',time.time(),{})
                     return
         elif not biggest_target == None and not biggest_own == None and recogtime_target > ( time.time() - 5 ):
@@ -101,7 +92,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.__nao.walkNav(0.15,0.15,-((90 * almath.TO_RAD) + headAngle))
                 if biggest_own['surface'] > 50 and ( biggest_own['y'] > biggest_target['y'] ):
                     print "Target hoger dan Own"
-                    self.__nao.walkNav(0.15,-(0.51),((90 * almath.TO_RAD) + headAngle))
+                    self.__nao.walkNav(0.15,-(0.15),((90 * almath.TO_RAD) + headAngle))
         if not self.__nao.isMoving(): 
             if self.__state == "F1":
                 self.__state = "F2"
