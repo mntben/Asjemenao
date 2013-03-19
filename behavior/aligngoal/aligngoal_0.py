@@ -13,7 +13,8 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
     def implementation_init(self):
         self.__nao = self.body.nao(0)
         self.__start_time = time.time()   
-        self.idling = False            
+        self.idling = False        
+        self.__state = "F1"    
         self.__nao.say("Align!")
         print "Target goal: "  + self.target_goal
         print "Own goal: "  + self.own_goal
@@ -40,13 +41,16 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 self.idling = True
                 self.m.add_item('goal_aligned',time.time(),{})
                 
-        
-        self.__nao.look_up()
-        self.check_blobs()
-        #self.__nao.look_left()
-        #self.check_blobs()
-        #self.__nao.look_right()
-        #self.check_blobs()
+        if self.__state == "F1":
+            self.__nao.look_up()
+            self.check_blobs()
+        elif self.__state == "F2":
+            self.__nao.look_left()
+            self.check_blobs()
+        elif self.__state == "F3":
+            self.__nao.look_horizontal()
+            self.__nao.look_right()
+            self.check_blobs()
         #self.__nao.walkNav(0, 0, (120 * almath.TO_RAD), 0.01)
 
     def check_blobs(self):
@@ -81,9 +85,9 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if biggest_target['surface'] >= 2000:
                     print "Big goal"
                     self.idling = True
-                    #self.__nao.walkNav(0,0,headAngle)
+                    self.__nao.walkNav(0,0,headAngle)
                     self.m.add_item('goal_aligned',time.time(),{})
-                    return              
+                    return
         elif not biggest_target == None and not biggest_own == None and recogtime_target > ( time.time() - 5 ):
             print "Two markers"
             if biggest_target['surface'] > 50 and biggest_target['surface'] < 2000:
@@ -98,3 +102,10 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if biggest_own['surface'] > 50 and ( biggest_own['y'] > biggest_target['y'] ):
                     print "Target hoger dan Own"
                     self.__nao.walkNav(0.15,-(0.51),((90 * almath.TO_RAD) + headAngle))
+        if not self.__nao.isMoving(): 
+            if self.__state == "F1":
+                self.__state = "F2"
+            elif self.__state == "F2":
+                self.__state = "F3"  
+            elif self.__state == "F3":
+                self.__state = "F1"

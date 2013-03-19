@@ -17,6 +17,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         self.idling = False
 
         self.__start_time = time.time()
+        self.__state = "F1"
 
         self.__nao = self.body.nao(0)
         self.__nao.say("Aligning with goal!")
@@ -54,8 +55,6 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                                     self.__checked = True
                                     self.__nao.say("In front of the goal")
                                     self.m.add_item('goal_aligned',time.time(),{})
-                            else:
-                                AlignGoal_x.__state = "FIND_RIGHT"
                         elif AlignGoal_x.__state == "FIND_RIGHT":
                             self.__nao.say("Turning right")
                             self.__nao.walkNav(0.15, 0.15,-(1.570), 0.01)
