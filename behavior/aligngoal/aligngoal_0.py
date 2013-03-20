@@ -93,7 +93,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     % ("yellow", biggest_target['x'], biggest_target['y'], biggest_target['width'], biggest_target['height'], biggest_target['surface']) 
                 print "Blob detected: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                     % ("blue", biggest_own['x'], biggest_own['y'], biggest_own['width'], biggest_own['height'], biggest_own['surface'])                                    
-                if biggest_target['surface'] >= 2000 and biggest_target['surface'] < 5000 and biggest_target['width'] > 40:
+                if biggest_target['surface'] >= 2000 and biggest_target['surface'] < 15000 and biggest_target['width'] > 40:
                     print "Big goal"
                     self.idling = True
                     # If the goal is seen while looking left

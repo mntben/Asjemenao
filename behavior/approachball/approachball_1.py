@@ -39,17 +39,19 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                     blob_center_x = biggest_blob['x'] + biggest_blob['width']/2
                     blob_center_y = biggest_blob['y'] + biggest_blob['height']/2
                     #Is the ball in the correct location?:
-                    if blob_center_y > 90 and blob_center_x > 30 and blob_center_x < 130 and not self.__is_looking_horizontal:
+                    if blob_center_y > 110 and blob_center_x > 30 and blob_center_x < 130 and not self.__is_looking_horizontal:
                         # If the ball is seen close enough, use self.m.add_item('ball_approached',time.time(),{}) to finish this behavior.
                         self.__nao.stopwalk()
                         self.m.add_item('ball_approached', time.time(),{}) 
                         print "Now aligning"
-                        return
-                    if blob_center_y < 90:
+                        return                 
+                    if blob_center_y > 110 and ( blob_center_x >= 130 or blob_center_x < 30 ) and not self.__is_looking_horizontal:
+                        self.__nao.walkNav(-0.1, 0, 0, 0.01)                      
+                    if blob_center_y < 110:
                         if self.__is_looking_horizontal:
-                            X = (((((blob_center_y -90)/90)**2)*0.25)+0.75)
+                            X = (((((blob_center_y -110)/110)**2)*0.25)+0.75)
                         else:
-                            X = (((((blob_center_y -90)/90)**2)*0.75)+0.25)
+                            X = (((((blob_center_y -110)/110)**2)*0.75)+0.25)
                         
                         Theta = math.copysign(((((blob_center_x -80)/80)**(2))/2), ((blob_center_x -80)*-1))
                         #Value found after enourmous amounts of experiments by trial and error
