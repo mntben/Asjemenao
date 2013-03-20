@@ -108,7 +108,7 @@ class FindBall_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         #self.__nao.say("Now in front of the ball")
                         self.m.add_item('ball_found',time.time(),{})
 
-                if biggest_blob['surface'] > 400 and biggest_blob['surface'] < 900 and biggest_blob['width'] < 50 and biggest_blob['height'] < 50:
+                if biggest_blob['surface'] > 30 and biggest_blob['surface'] < 1500 and biggest_blob['width'] < 50 and biggest_blob['height'] < 50:
                     print "Ball Detected"
                     #self.__wait = True
                     if self.__state == "FIND_DOWN_L":
