@@ -77,13 +77,17 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if biggest_own['surface'] > 500  and ( biggest_own['y'] < biggest_target['y'] ):
                     print "Own hoger dan Target"
                     self.__nao.look_forward()
-                    self.__nao.walkNav(0.15,0.15,-((90 * almath.TO_RAD)))
+                    self.__nao.walkNav(0,0,-(80 * almath.TO_RAD), 0.01)
+                    self.__nao.walkNav(0, -0.2, 0, 0.01)  
+                    self.__nao.walkNav(-0.2, 0, 0, 0.01)                  
                     self.__nao.wait_for(0.5)
                     self.__state = "F1"                    
                 if biggest_own['surface'] > 500 and ( biggest_own['y'] > biggest_target['y'] ):
                     print "Target hoger dan Own"
                     self.__nao.look_forward()
-                    self.__nao.walkNav(0.15,-(0.15),((90 * almath.TO_RAD)))
+                    self.__nao.walkNav(0,0,(80 * almath.TO_RAD), 0.01)
+                    self.__nao.walkNav(0, 0.2, 0, 0.01)
+                    self.__nao.walkNav(-0.2, 0, 0, 0.01)
                     self.__nao.wait_for(0.5)
                     self.__state = "F1"
         if ( not biggest_target == None ):
