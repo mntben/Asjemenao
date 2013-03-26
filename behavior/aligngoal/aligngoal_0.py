@@ -96,7 +96,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     % ("blue", biggest_own['x'], biggest_own['y'], biggest_own['width'], biggest_own['height'], biggest_own['surface'])                                    
                 if biggest_own['surface'] >= 2000 and biggest_own['surface'] < 15000 and biggest_own['width'] > 40:
                     print "Own goal"
-                    self.__nao.walkNav(0.3,-(0.3),((180 * almath.TO_RAD)),0.01)                   
+                    self.__nao.walkNav(0.15,-(0.15),((90 * almath.TO_RAD)),0.01)                   
         if ( not biggest_target == None ):
             print "Something goal like seen"
             if ( recogtime_target > (time.time() - 5) ):
