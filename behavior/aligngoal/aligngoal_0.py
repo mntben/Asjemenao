@@ -77,17 +77,13 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 if biggest_own['surface'] > 500  and ( biggest_own['y'] < biggest_target['y'] ):
                     print "Own hoger dan Target"
                     self.__nao.look_forward()
-                    self.__nao.walkNav(0,0,-(80 * almath.TO_RAD), 0.01)
-                    self.__nao.walkNav(0, -0.2, 0, 0.01)  
-                    self.__nao.walkNav(-0.2, 0, 0, 0.01)                  
+                    self.__nao.walkNav(0.15,0.15,-((90 * almath.TO_RAD)),0.01)             
                     self.__nao.wait_for(0.5)
                     self.__state = "F1"                    
                 if biggest_own['surface'] > 500 and ( biggest_own['y'] > biggest_target['y'] ):
                     print "Target hoger dan Own"
                     self.__nao.look_forward()
-                    self.__nao.walkNav(0,0,(80 * almath.TO_RAD), 0.01)
-                    self.__nao.walkNav(0, 0.2, 0, 0.01)
-                    self.__nao.walkNav(-0.2, 0, 0, 0.01)
+                    self.__nao.walkNav(0.15,-(0.15),((90 * almath.TO_RAD)),0.01) 
                     self.__nao.wait_for(0.5)
                     self.__state = "F1"
         if ( not biggest_target == None ):
@@ -102,12 +98,12 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.idling = True
                     # If the goal is seen while looking left
                     if self.__state == "F2":
-                        self.__nao.walkNav(0,0,(45 * almath.TO_RAD), 0.01)
+                        self.__nao.walkNav(0,0,(40 * almath.TO_RAD), 0.01)
                         self.__nao.walkNav(-0.2, 0, 0, 0.01)
                         self.__nao.walkNav(0, -0.2, 0, 0.01)
                     # Elif the goal is seen while looking right
                     elif self.__state == "F3":
-                        self.__nao.walkNav(0,0,-(45 * almath.TO_RAD), 0.01)
+                        self.__nao.walkNav(0,0,-(40 * almath.TO_RAD), 0.01)
                         self.__nao.walkNav(-0.2, 0, 0, 0.01)
                         self.__nao.walkNav(0, 0.2, 0, 0.01)
                     self.__nao.look_forward_down()
@@ -137,7 +133,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 
     def approach_ball(self):
         (recogtime, obs) = self.m.get_last_observation("combined_red")
-        if not obs == None and recogtime > time.time()-5:
+        if not obs == None and recogtime > time.time()-10:
             self.__last_ball_recogtime = recogtime
             contours = obs["sorted_contours"]
             biggest_blob = contours[0]
