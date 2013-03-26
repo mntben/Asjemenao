@@ -29,12 +29,13 @@ class ApproachBall_x(basebehavior.behaviorimplementation.BehaviorImplementation)
                 contours = obs["sorted_contours"]
                 biggest_blob = contours[0]
                 #Ball is found if the detected ball is big enough (thus filtering noise):
-                if biggest_blob['surface'] > 100 and biggest_blob['surface'] < 550:
+                if biggest_blob['surface'] > 100 and biggest_blob['surface'] < 800:
                     self.__ball_last_seen = time.time()
                     #Is the ball in the correct location?:
                     if biggest_blob['y'] > 75 and biggest_blob['x'] > 60 and biggest_blob['x'] < 100 and not self.__is_looking_horizontal:
                         # If the ball is seen close enough, use self.m.add_item('ball_approached',time.time(),{}) to finish this behavior.
                         self.m.add_item('ball_approached', time.time(),{}) 
+                        print "In front of the ball"
                         return
                     #~ if not self.__nao.isWalking():
                         #~ #Make sure that the ball is in the center of the camera:

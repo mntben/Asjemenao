@@ -12,7 +12,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 
     def implementation_init(self):
         self.idling = False
-
+        print "Align!"
         self.__start_time = time.time()
 
         self.__nao = self.body.nao(0)
@@ -20,6 +20,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         self.__state = "FIND"
         self.__checked = False
         self.__nao.look_forward()
+        self.__nao.look_up()
         self.__last_ball_recogtime = 0
         
         # With a yellow goal:
@@ -38,7 +39,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         % ("yellow", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                     self.__last_recogtime = recogtime
                     # Goal is found if the detected blob is big enough (thus filtering noise)
-                    if biggest_blob['height'] > 20 and biggest_blob['surface'] > 150 and blue_blob_surface < 150:
+                    if biggest_blob['height'] > 15 and biggest_blob['surface'] > 500 and blue_blob_surface < 500:
                         print "Goal Detected"
                         self.__checked = True   
                         if self.__state == "FIND":
@@ -67,7 +68,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                             # Dit moet nog beter, en waarschijnlijk op een andere plek:
                             self.__nao.say("Maybe the goal is on the other side?")
                             self.__checked = True
-                            self.__nao.walkNav(0.3,0.2,(180 * almath.TO_RAD))
+                            self.__nao.walkNav(0.15,0.15,(90 * almath.TO_RAD))
                             #self.__nao.look_forward()          
             else:
                 if self.__state == "FIND":
@@ -79,12 +80,12 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.__nao.look_left()
                     self.__state = "FIND_LEFT"
                     self.__nao.say("Looking left")
-                elif self.__state == "FIND_LEFT":
-                    # Dit moet nog beter, en waarschijnlijk op een andere plek:
-                    self.__nao.say("Maybe the goal is on the other side?")
-                    self.__checked = True
-                    self.__nao.walkNav(0.3,0.2,(180 * almath.TO_RAD))
-                    self.__nao.look_forward()	
+                #~ elif self.__state == "FIND_LEFT":
+                    #~ # Dit moet nog beter, en waarschijnlijk op een andere plek:
+                    #~ self.__nao.say("Maybe the goal is on the other side?")
+                    #~ self.__checked = True
+                    #~ self.__nao.walkNav(0.3,0.2,(180 * almath.TO_RAD))
+                    #~ self.__nao.look_forward()	
 
 
     def implementation_update(self):
@@ -95,6 +96,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         #It now simply assumes that it is already aligned:
         if not self.__nao.isMoving(): 
             if (time.time() - self.__start_time) > 20:
+                print("te lang")
                 self.m.add_item('subsume_stopped',time.time(),{'reason':'Ball no longer seen.'})
                 self.idling = True
             self.m.add_item('goal_aligned',time.time(),{})    
