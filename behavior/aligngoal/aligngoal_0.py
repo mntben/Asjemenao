@@ -93,8 +93,6 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             print "Something own goal like seen"
             if ( recogtime_target > (time.time() - 5) ):
                 print "Blob detected: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
-                    % ("yellow", biggest_target['x'], biggest_target['y'], biggest_target['width'], biggest_target['height'], biggest_target['surface']) 
-                print "Blob detected: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                     % ("blue", biggest_own['x'], biggest_own['y'], biggest_own['width'], biggest_own['height'], biggest_own['surface'])                                    
                 if biggest_own['surface'] >= 2000 and biggest_own['surface'] < 15000 and biggest_own['width'] > 40:
                     print "Own goal"
