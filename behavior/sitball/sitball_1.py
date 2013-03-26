@@ -13,7 +13,7 @@ class Sitball_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 		self.idling = False
 		self.__start_time = time.time()
 		self.__nao = self.body.nao(0)
-		self.__nao.start_behavior("Asje_sitdown")   
+		self.__nao.start_behavior("sitdown")   
 		self.__nao.look_down()
 
 	def implementation_update(self):
@@ -25,7 +25,7 @@ class Sitball_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 		biggest_blob = contours[0]
 
 
-		if ((time.time() - self.__start_time) > 5) and ( ( not self.m.n_occurs("combined_red") > 0 ) or biggest_blob['surface'] < 100 ):
+		if ((time.time() - self.__start_time) > 10) and ( ( not self.m.n_occurs("combined_red") > 0 ) or biggest_blob['surface'] < 100 ):
 			print "Can't see the bal anymore 1"
 			self.m.add_item('subsume_stopped',time.time(),{'reason':'Hopefully I am on the ground.'})
 			self.idling = True

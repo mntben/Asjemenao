@@ -27,7 +27,10 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         if self.idling:
             return    
         
-        if not self.__nao.isMoving(): 
+        if not self.__nao.isMoving():
+            if (time.time() - self.__start_time) > 15:
+                print "Turning"
+                self.__nao.walkNav(0.15,0.15,-((90 * almath.TO_RAD)),0.01)            
             if (time.time() - self.__start_time) > 30:
                 print "Just kicking (timer expired)"
                 self.idling = True
@@ -86,6 +89,16 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.__nao.walkNav(0.15,-(0.15),((90 * almath.TO_RAD)),0.01) 
                     self.__nao.wait_for(0.5)
                     self.__state = "F1"
+        if ( not biggest_own == None ):
+            print "Something own goal like seen"
+            if ( recogtime_target > (time.time() - 5) ):
+                print "Blob detected: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
+                    % ("yellow", biggest_target['x'], biggest_target['y'], biggest_target['width'], biggest_target['height'], biggest_target['surface']) 
+                print "Blob detected: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
+                    % ("blue", biggest_own['x'], biggest_own['y'], biggest_own['width'], biggest_own['height'], biggest_own['surface'])                                    
+                if biggest_own['surface'] >= 2000 and biggest_own['surface'] < 15000 and biggest_own['width'] > 40:
+                    print "Own goal"
+                    self.__nao.walkNav(0.3,-(0.3),((180 * almath.TO_RAD)),0.01)                   
         if ( not biggest_target == None ):
             print "Something goal like seen"
             if ( recogtime_target > (time.time() - 5) ):
@@ -93,19 +106,21 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     % ("yellow", biggest_target['x'], biggest_target['y'], biggest_target['width'], biggest_target['height'], biggest_target['surface']) 
                 print "Blob detected: %s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                     % ("blue", biggest_own['x'], biggest_own['y'], biggest_own['width'], biggest_own['height'], biggest_own['surface'])                                    
-                if biggest_target['surface'] >= 2000 and biggest_target['surface'] < 15000 and biggest_target['width'] > 40:
+                if biggest_target['surface'] >= 1000 and biggest_target['surface'] < 15000 and biggest_target['width'] > 40:
                     print "Big goal"
                     self.idling = True
                     # If the goal is seen while looking left
                     if self.__state == "F2":
-                        self.__nao.walkNav(0,0,(40 * almath.TO_RAD), 0.01)
-                        self.__nao.walkNav(-0.2, 0, 0, 0.01)
-                        self.__nao.walkNav(0, -0.2, 0, 0.01)
+                        #self.__nao.walkNav(0,0,(42 * almath.TO_RAD), 0.01)
+                        #self.__nao.walkNav(-0.25, 0, 0, 0.01)
+                        #self.__nao.walkNav(0, -0.25, 0, 0.01)
+                        self.__nao.walkNav(0.15,-(0.15),((45 * almath.TO_RAD)),0.01) 
                     # Elif the goal is seen while looking right
                     elif self.__state == "F3":
-                        self.__nao.walkNav(0,0,-(40 * almath.TO_RAD), 0.01)
-                        self.__nao.walkNav(-0.2, 0, 0, 0.01)
-                        self.__nao.walkNav(0, 0.2, 0, 0.01)
+                        #self.__nao.walkNav(0,0,-(42 * almath.TO_RAD), 0.01)
+                        #self.__nao.walkNav(-0.25, 0, 0, 0.01)
+                        #self.__nao.walkNav(0, 0.25, 0, 0.01)
+                        self.__nao.walkNav(0.15,0.15,-((45 * almath.TO_RAD)),0.01)
                     self.__nao.look_forward_down()
                     self.__is_looking_horizontal = False
                     # Approachball (if -> while ?):
@@ -120,7 +135,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                             self.__nao.look_up()
                             self.__is_looking_horizontal = True
                             self.__state = "F1"
-                            self.m.add_item('subsume_stopped',time.time(),{'reason':'Ive lost the ball.'})
+                            self.m.add_item('goal_aligned',time.time(),{})
                             self.idling = True
                             return                    
         if not self.__nao.isMoving(): 
@@ -133,7 +148,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                 
     def approach_ball(self):
         (recogtime, obs) = self.m.get_last_observation("combined_red")
-        if not obs == None and recogtime > time.time()-10:
+        if not obs == None and recogtime > time.time()-15:
             self.__last_ball_recogtime = recogtime
             contours = obs["sorted_contours"]
             biggest_blob = contours[0]
@@ -157,6 +172,6 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                     self.m.add_item('goal_aligned',time.time(),{})
                     self.idling = True
                     self.__approaching = 'ready'
-                    return False
+                    return False            
         self.__approaching = 'lost'
         return False
