@@ -24,6 +24,11 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         
         # With a yellow goal:
         while self.__checked is False:
+            blue_blob_surface = 0
+            if (self.m.n_occurs("combined_blue") > 0):
+                (recogtime, obs) = self.m.get_last_observation("combined_blue")
+                contours = obs["sorted_contours"]
+                blue_blob_surface = contours[0]['surface']
             if (self.m.n_occurs("combined_yellow") > 0):
                 (recogtime, obs) = self.m.get_last_observation("combined_yellow")
                 if not obs == None and recogtime > self.__last_ball_recogtime:
@@ -33,7 +38,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
                         % ("yellow", biggest_blob['x'], biggest_blob['y'], biggest_blob['width'], biggest_blob['height'], biggest_blob['surface'])
                     self.__last_recogtime = recogtime
                     # Goal is found if the detected blob is big enough (thus filtering noise)
-                    if biggest_blob['height'] > 20 and biggest_blob['surface'] > 150:
+                    if biggest_blob['height'] > 20 and biggest_blob['surface'] > 150 and blue_blob_surface < 150:
                         print "Goal Detected"
                         self.__checked = True   
                         if self.__state == "FIND":
