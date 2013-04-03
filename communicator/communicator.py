@@ -371,12 +371,12 @@ class Communicator(object):
             for conn, conn_id in self.__connection_list:
                 conn.send_sources()
             
-    def start_video_source(self, camType, ip=None, inputres="640x480", outputres="640x480"):
+    def start_video_source(self, camType, ip=None, inputres="640x480", outputres="640x480", vidport = 9559):
         if not camType or camType == "None":
             return True
 
         self.__video_source_settings[camType] = (ip, inputres, outputres, self.__camera)
-        command = {"command": "start", "source": camType, "ip": ip, "inputres": inputres, "outputres": outputres, "camera": self.__camera}
+        command = {"command": "start", "source": camType, "ip": ip, "inputres": inputres, "outputres": outputres, "camera": self.__camera, "vidport" : vidport}
         self.__pipe.send(command)
         
         cmd = self.check_video_manager("source_started", 5000)
@@ -584,6 +584,8 @@ class Communicator(object):
             self.logger.info("I'm starting nao camera")
             if "nao" in arguments:
                 ip = arguments['nao']
+            if "vidport" in arguments:
+                vidport = arguments['vidport']
             if "inputres" in arguments:
                 inputres = arguments['inputres']
             if "outputres" in arguments:
@@ -593,7 +595,7 @@ class Communicator(object):
             self.logger.info("I'm not starting anything")
             start_what = "None"
             
-        if not self.start_video_source(start_what, ip, inputres, outputres):
+        if not self.start_video_source(start_what, ip, inputres, outputres, vidport):
             self.logger.error("Video source not available. Not starting module")
             return -1, "Video source not available. Not starting module"
                 

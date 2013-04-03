@@ -37,16 +37,54 @@ def create_ML_file(goal, behavior_name, id_list, max_duration, top_nr, use_lower
         raise SyntaxError("max_duration should be an int!")
     if not isinstance(min_to_train, int):
         raise SyntaxError("min_to_train should be an int!")
-    
+
     # Generate the list of dicts for the behavior versions.
     behaviors = range(len(id_list))
     for i in behaviors:
         behaviors[i] = {'id': id_list[i], 'completion_times': [], 'non_cutoff_times': [], 'failed_times': [], 'upper': deepcopy(max_duration), 'lower': 0, 'times_completed': 0, 'times_run': 0, 'times_failed': 0}
-    
+
     # Add this list and the other values to a dict.
     usedDict = {'behavior_name': behavior_name, 'behaviors': behaviors, 'use_lower': use_lower, 'confidence_level': confidence_level, 'top_nr': top_nr, 'max_duration': max_duration, 'training_completed': False, 'min_to_train': min_to_train, 'max_tries': max_tries}
-    
+
     # And create the file.
     output=open(goal, 'wb')
     pickle.dump(usedDict, output)
-    output.close()  
+    output.close()
+
+def get_behavior_numbers():
+    """Used to get the list of versions to use."""
+    nr_of_versions = eval(raw_input("How many versions should be used? "))
+
+    versions_list = []
+    for el in range(nr_of_versions):
+        el = raw_input("Version " + str(el) + ": ")
+        versions_list.append(eval(el))
+
+    # And return the generated list.
+    return versions_list
+
+def main():
+    """Used to set up the files in the terminal."""
+    print "This is the simplified setup to create learning files."
+    print "Default values are used for the variables not asked for."
+
+    # Ask for a file name.
+    goal = raw_input("Where should the target color file be stored? (make sure it ends in .pkl) ")
+
+    # Ask the name of the behavior to be used.
+    behavior_name = raw_input("WHich behavior is the BBIE file for? ")
+
+    # Get the versions to be used.
+    id_list = get_behavior_numbers()
+
+    # Get max duration.
+    max_duration = eval(raw_input("What should be the cutoff time in seconds? "))
+
+    # Get top nr.
+    top_nr = eval(raw_input("How many of the best options should be considered? "))
+
+    # Now, create the file.
+    create_ML_file(goal, behavior_name, id_list, max_duration, top_nr)
+
+if __name__ == "__main__":
+    main()
