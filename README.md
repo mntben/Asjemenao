@@ -1,4 +1,0 @@
-Asjemenao
-=========
-
-Asjemenao - nao soccer

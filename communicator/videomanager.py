@@ -237,6 +237,7 @@ class VideoManager(multiprocessing.Process):
             ip = None
             inputres = None
             outputres = None
+            port = 9559
             if "ip" in data:
                 ip = data['ip']
             if "inputres" in data:
@@ -245,7 +246,9 @@ class VideoManager(multiprocessing.Process):
                 outputres = data['outputres']
             if "camera" in data:
                 self.__camera = data['camera']
-            result = self._start_video_source(source, ip, inputres, outputres)
+            if "vidport" in data:
+                vidport = data['vidport']
+            result = self._start_video_source(source, ip, inputres, outputres, vidport)
             self.__check_image_handlers()
             self.__pipe.send({"command": "source_started", "result": result})
         elif cmd == "stop":
@@ -275,7 +278,7 @@ class VideoManager(multiprocessing.Process):
             # End the VideoManager
             self._running = False
 
-    def _start_video_source(self, source, ip=None, inputres="640x480", outputres="640x480"):
+    def _start_video_source(self, source, ip=None, inputres="640x480", outputres="640x480", vidport = 9559):
         """
         This method starts a new video source, which some optional arguments
         specified such as input and output resolution and a IP address.
@@ -287,11 +290,11 @@ class VideoManager(multiprocessing.Process):
         if not source or source == "None":
             return True
 
-        result = self._start_vidmemwriter(source, ip, inputres, outputres)
+        result = self._start_vidmemwriter(source, ip, inputres, outputres, vidport = vidport)
 
         return result
 
-    def _start_vidmemwriter(self, camType, ip=None, inputres="640x480", outputres="640x480"):
+    def _start_vidmemwriter(self, camType, ip=None, inputres="640x480", outputres="640x480", vidport = 9559):
         """
         Start the vidmemwriter and a video source, if required. If in server
         mode, no vidmemwriter will be started. Instead, the video module will
@@ -412,7 +415,7 @@ class VideoManager(multiprocessing.Process):
             if self.__camera != 0 and self.__camera != 1:
                 self.__camera = 0
             try:
-                naocamsource = naovideo.VideoModule(naoip, inputres, outputres, camera=self.__camera)
+                naocamsource = naovideo.VideoModule(naoip, inputres, outputres, camera=self.__camera, port = vidport)
                 naocamsource.get_image()
             except:
                 self.__logger.error("Something went wrong using the camera of the nao (check connection!)")
