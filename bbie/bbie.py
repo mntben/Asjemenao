@@ -110,9 +110,9 @@ def get_best_implementations(file_loc):
         
         for el in behavset:
             if learning_data['use_lower']:
-                opts.append((learning_data['max_duration'], el['id']))
+                opts.append((el['lower'], el['id']))
             else:
-                opts.append((learning_data['max_duration'], el['id']))
+                opts.append((el['upper'], el['id']))
         # Sort these appropriately using the boundaries.
         
         if learning_data['use_lower']:
