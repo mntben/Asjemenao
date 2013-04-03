@@ -10,16 +10,12 @@ class ExampleBlobdetector_x(basebehavior.behaviorimplementation.BehaviorImplemen
         self.__last_recogtime = 0
 
         self.__blob_list = [
-                ["green", True, time.time()],
-                ["red", True, time.time()],
+                ["green", False, time.time()],
+                ["red", False, time.time()],
                 ["blue", False, time.time()],
                 ["yellow", False, time.time()],
             ]
         self.__nao = self.body.nao(0)
-        self.__nao.useTopCamera()
-        self.__nao.initCamera()
-        self.__nao.useBottomCamera()
-        self.__nao.initCamera()
 
     def implementation_update(self):
         for blob in self.__blob_list:
@@ -29,7 +25,7 @@ class ExampleBlobdetector_x(basebehavior.behaviorimplementation.BehaviorImplemen
                     blob[2] = time.time()
                     print "%s: x=%d, y=%d, width=%d, height=%d, surface=%d" \
                         % (blob[0], obs['x'], obs['y'], obs['width'], obs['height'], obs['surface'])
-                    if obs['surface'] > 150 and not blob[1]:
+                    if obs['surface'] > 300 and not blob[1]:
                         self.__nao.say("Yeah, ok I found the %s blob." % blob[0])
                         blob[1] = True
             if (time.time() - blob[2]) > 10:

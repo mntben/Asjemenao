@@ -14,18 +14,7 @@ class Shoot_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 
         self.__start_time = time.time()
         self.__nao = self.body.nao(0)
-        
-        self.__nao.look_down()
-        self.__nao.say("Kicking!")
-        if (self.m.n_occurs("combined_red") > 0):
-            (recogtime, obs) = self.m.get_last_observation("combined_red")
-            contours = obs["sorted_contours"]
-            biggest_blob = contours[0]
-            blob_center_x = biggest_blob['x'] + biggest_blob['width']/2
-            if blob_center_x < 80:
-                self.__nao.start_behavior("Asje_kick_L")
-            elif blob_center_x >= 80:
-                self.__nao.start_behavior("Asje_kick_R")
+        self.__nao.start_behavior("simple_kick")
 
     def implementation_update(self):
         if self.idling:

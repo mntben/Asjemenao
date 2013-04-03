@@ -107,24 +107,18 @@ class Nao(object):
     def move(self, Joint, Angle, Speed):
         self.__Motion.setAngles(Joint, Angle, Speed)
 
-    def walk(self, X=0, Y=0, Theta=0):
-        self.__Motion.walkTo(X, Y, Theta)
-        
-    def moveToward(self, X=0, Y=0, Theta=0):
-        self.__Motion.moveToward(X, Y, Theta)
+    def walk(self, X=0, Y=0, Teta=0):
+        self.__Motion.walkTo(X, Y, Teta)
 
-    def walkNav(self, X=0, Y=0, Theta=0, distance = 0.4):
+    def walkNav(self, X=0, Y=0, Teta=0, distance = 0.4):
         self.__Navigation.setSecurityDistance(distance)
-        self.__Navigation.moveTo(X, Y, Theta)
+        self.__Navigation.moveTo(X, Y, Teta)
 
     def isWalking(self):
         return self.__Motion.walkIsActive()    
         
-    def isMoving(self):
-        return self.__Motion.moveIsActive()
-        
     def stopwalk(self):
-        self.__Motion.stopMove()
+        self.__Motion.stopWalk()
         
     def setWalkTargetVelocity(self, x , y, theta, frequency):
         self.__Motion.setWalkTargetVelocity(x , y, theta, frequency)
@@ -510,43 +504,8 @@ class Nao(object):
         Makes the Nao look completely horizontal.
         """
         self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadYaw", 0, 1.0, True)
-    
-    def look_forward(self):
-        """
-        Makes the Nao look straigth forward
-        """
-        self.get_proxy("motion").setStiffnesses("Head", 1.0)
         self.get_proxy("motion").angleInterpolation("HeadPitch", 0, 1.0, True)
-        self.get_proxy("motion").angleInterpolation("HeadYaw", 0, 1.0, True)
-        
-    def look_up(self):
-        """
-        Makes the Nao look straigth forward
-        """
-        self.get_proxy("motion").angleInterpolation("HeadPitch", -0.3, 1.0, True)
-        
-    def look_forward_down(self):
-        """
-        Makes the Nao look straigth forward
-        """
-        self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadPitch", 25 * almath.TO_RAD, 1.0, True) 
-        self.get_proxy("motion").angleInterpolation("HeadYaw", 0, 1.0, True)        
-    
-    def look_right(self):
-        """
-        Makes the Nao look right.
-        """
-        self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadYaw", -(45 * almath.TO_RAD), 1.0, True)
 
-    def look_left(self):
-        """
-        Makes the Nao look left.
-        """
-        self.get_proxy("motion").setStiffnesses("Head", 1.0)
-        self.get_proxy("motion").angleInterpolation("HeadYaw", 45 * almath.TO_RAD, 1.0, True)
 
     def sit_down(self):
         """
@@ -580,53 +539,6 @@ class Nao(object):
 
         # Disable stiffness 
         self.set_stifness(['Body'], [0], [0.25])
-        
-    def useTopCamera(self):
-        self.__Video.setParam(18, 0)
-
-    def useBottomCamera(self):
-        self.__Video.setParam(18, 1)
-        
-    def initCamera(self):
-        #Default Camera Settings
-        #Basic Settings
-        
-        #Color Settings
-        #Gain: 26 / Exp: 83
-        #Gain: 28 / Exp: 60
-        #Gain: 35 / Exp: 40
-        
-        #AUTO_GAIN (AUTO GAIN OFF = 0)
-        self.__Video.setParam(13, 0)
-        #CAMERA_GAIN
-        self.__Video.setParam(6, 133)
-        #AUTO_WHITEBALANCE (AUTO WB OFF = 0)
-        self.__Video.setParam(12, 0)
-        #CAMERA_BLUECHROMA
-        self.__Video.setParam(5, 131)
-        #CAMERA_REDCHROMA
-        self.__Video.setParam(4, 70)
-        #CAMERA_BRIGHTNESS
-        self.__Video.setParam(0, 109)
-        #CAMERA_CONTRAST
-        self.__Video.setParam(1, 44)
-        #CAMERA_SATURATION
-        self.__Video.setParam(2, 95)
-        #CAMERA_HUE
-        self.__Video.setParam(3, 0)
-        
-        #Exposure length
-        #CAMERA_AUTO_EXPOSITION (AUTO EXPOSURE OFF =0)
-        self.__Video.setParam(11, 0)
-        #CAMERA_EXPOSURE
-        self.__Video.setParam(17, 300)
-        
-        #Image orientation
-        #CAMERA_HFLIP
-        self.__Video.setParam(7, 0)
-        #CAMERA_VFLIP
-        self.__Video.setParam(8, 0)
-
 
     def localize_object_in_image(self, rect, distance=None, width=None, camera=0, lookat=True, space=motion.SPACE_NAO):
         """
@@ -771,13 +683,6 @@ class Nao(object):
         yaw = HEAD_YAW + center_yaw
         pitch = HEAD_PITCH + center_pitch
         self.set_angles(['HeadYaw', 'HeadPitch'], [yaw, pitch], 0.2, radians=True)
-        
-    def wait_for(self, seconds):
-        begin_time = time.time()
-        while ((begin_time + seconds) > time.time()):
-            pass
-            #trololo
-        
         
 
 
