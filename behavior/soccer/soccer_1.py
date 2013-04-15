@@ -46,7 +46,7 @@ class Soccer_x(basebehavior.behaviorimplementation.BehaviorImplementation):
 
     def implementation_update(self):
 
-        if ((time.time()-self.restart_time)>10 and self.m.is_now('subsume_stopped', ['True'])):
+        if ((time.time()-self.restart_time)>5 and self.m.is_now('subsume_stopped', ['True'])):
             print "Lower level restarting."
             self.restart_time = time.time()
             self.findball = self.ab.findball({})

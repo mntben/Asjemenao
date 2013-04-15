@@ -122,7 +122,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
     def timeout(self):
         if not self.__nao.isMoving(): 
             #print "Not moving.."
-            if (time.time() - self.__start_time) > 10:
+            if (time.time() - self.__start_time) > 5:
                 print "Just kicking"
                 #self.m.add_item('subsume_stopped',time.time(),{'reason':'Ball no longer seen.'})
                 self.idling = True
@@ -142,7 +142,7 @@ class AlignGoal_x(basebehavior.behaviorimplementation.BehaviorImplementation):
         #It now simply assumes that it is already aligned:
         if not self.__nao.isMoving(): 
             print "Not moving.."
-            if (time.time() - self.__start_time) > 10:
+            if (time.time() - self.__start_time) > 5:
                 print "Just kicking"
                 #self.m.add_item('subsume_stopped',time.time(),{'reason':'Ball no longer seen.'})
                 self.idling = True

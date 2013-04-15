@@ -32,7 +32,7 @@ class Shoot_x(basebehavior.behaviorimplementation.BehaviorImplementation):
             return
 
         # Simply time out after 5 seconds:
-        if (time.time() - self.__start_time) > 10:
+        if (time.time() - self.__start_time) > 5:
             self.__nao.say("I hope I kicked the ball.")
             self.m.add_item('subsume_stopped',time.time(),{'reason':'Hopefully I kicked the ball.'})
             self.idling = True
